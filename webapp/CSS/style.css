@@ -1,0 +1,40 @@
+.styleclass1 {
+    color: black;
+    padding: 13.5px;
+    font-size: 20px;
+    font-style: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-align: left;
+    margin-left: 1px;
+    background-color: white;
+    word-spacing: 3px;
+}
+
+.green {
+	 color: green;
+  background-color: yellow;
+ 
+}
+
+.red {
+   background-color: red;
+}
+.header {
+   
+    padding: 10px;
+    font-size: 15px;
+    font-style: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-align: left;
+    margin-left: 500px;
+   
+    word-spacing: 3px;
+}
+
+.chart {
+   
+   
+    font-style: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    
+}

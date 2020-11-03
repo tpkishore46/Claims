@@ -1,0 +1,373 @@
+<mvc:View controllerName="zqtc.ZQTC_CLAIMS.controller.Worklist" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.f.semantic"
+	xmlns:core="sap.ui.core" xmlns:table="sap.ui.table" xmlns:viz="sap.viz.ui5.controls" xmlns:vizFeeds="sap.viz.ui5.controls.common.feeds"
+	xmlns:vizData="sap.viz.ui5.data" xmlns:micro="sap.suite.ui.microchart" xmlns:commons="sap.suite.ui.commons" xmlns:layout="sap.ui.layout">
+	<Page title="Customer Claims Processing" showHeader="false">
+		<!--<semantic:SemanticPage id="page">-->
+		<!--	<semantic:titleHeading>-->
+		<!--		<Title text="Track Shipments/ Delivery Details" level="H2"/>-->
+		<!--	</semantic:titleHeading>-->
+		<!--<semantic:headerContent>-->
+		<!--<headerContent>-->
+		<!--            	<Image src="Logo/Wileylogo.GIF" height="45px" width="150px" />-->
+		<!--      </headerContent>	-->
+		<content>
+			<HBox>
+				<Image src="Logo/Wileylogo.GIF" height="50px" width="150px"/>
+				<Text text="Customer Claims Processing" textAlign="Center" width="1000px" class="styleclass1"/>
+				<Text text=". " textAlign="End" width="200px" class="styleclass1"/>
+			</HBox>
+			<Panel expandable="true" expanded="true">
+				<layout:BlockLayout visible="true" class="overview">
+					<layout:content>
+						<layout:BlockLayoutRow >
+							<layout:content>
+								<layout:BlockLayoutCell id="Cellab" visible="true">
+									<layout:content>
+										<viz:Popover id="idPopOver"></viz:Popover>
+										<commons:ChartContainer id="chartContainerdcc" showFullScreen="true" showSelectionDetails="true" autoAdjustHeight="true"
+											enableScroll="false" showPersonalization="false" showZoom="false" title="Release/Claim Orders History"
+											personalizationPress="attachPersonalizationPress" contentChange="onChartContentChange" showLegendButton="true">
+											<commons:content>
+												<commons:ChartContainerContent icon="sap-icon://line-chart" title="Line Chart">
+													<commons:content >
+														<!--<FlexBox justifyContent="Start" alignItems="Center">-->
+														<!--	<items>-->
+														<viz:VizFrame id="idDonutChart2" vizType="donut" height="270px"
+															vizProperties="{plotArea: { drawingEffect: 'glossy' },title:{visible: false}, dataLabel:{visible:true,showTotal:true,type:'value'}}">
+															<viz:dataset>
+																<vizData:FlattenedDataset data="{Chart1>/results}">
+																	<vizData:dimensions>
+																		<vizData:DimensionDefinition name="Order Type" value="{Chart1>BEZEI}"/>
+																	</vizData:dimensions>
+																	<vizData:measures>
+																		<vizData:MeasureDefinition name="Count" value="{Chart1>Count}"/>
+																	</vizData:measures>
+																</vizData:FlattenedDataset>
+															</viz:dataset>
+															<viz:feeds>
+																<vizFeeds:FeedItem uid="size" type="Measure" values='Count'/>
+																<vizFeeds:FeedItem uid="color" type="Dimension" values="Order Type"/>
+															</viz:feeds>
+														</viz:VizFrame>
+														<!--	</items>-->
+														<!--</FlexBox>-->
+													</commons:content>
+												</commons:ChartContainerContent>
+											</commons:content>
+										</commons:ChartContainer>
+									</layout:content>
+									<!--//    chart2-->
+								</layout:BlockLayoutCell>
+								<layout:BlockLayoutCell id="Cellline1" visible="true" backgroundColorShade="ShadeC">
+									<layout:content>
+										<commons:ChartContainer id="piechartcc2" showFullScreen="true" showSelectionDetails="true" contentChange="onChartContentChange"
+											showPersonalization="false" showZoom="false" enableScroll="false" title="All Claims With Order Reason For Selected BP">
+											<commons:content>
+												<commons:ChartContainerContent icon="sap-icon://line-chart" class="chartcss">
+													<commons:content>
+														<viz:VizFrame id="idDonutCharq2" vizType="stacked_column" height="270px"
+															vizProperties="{plotArea: { drawingEffect: 'glossy' },title:{text:' '},dataLabel:{visible:false,showTotal:true}}">
+															<viz:dataset>
+																<vizData:FlattenedDataset id="Datachart" data="{Reason>/results}">
+																	<vizData:dimensions>
+																		<vizData:DimensionDefinition name="Month" value="{Reason>Month}"/>
+																	</vizData:dimensions>
+																	<vizData:measures>
+																		<!--<viz.data:MeasureDefinition name="Cancelled" value="{Reason>Count}"/>-->
+																		<vizData:MeasureDefinition name="L35" value="{Reason>Count}"/>
+																		<vizData:MeasureDefinition name="C36" value="{Reason>Count1}"/>
+																		<vizData:MeasureDefinition name="L05" value="{Reason>Count2}"/>
+																		<vizData:MeasureDefinition name="O01" value="{Reason>Count3}"/>
+																	</vizData:measures>
+																</vizData:FlattenedDataset>
+															</viz:dataset>
+															<viz:feeds>
+																<vizFeeds:FeedItem uid="valueAxis" type="Measure" values="L35"/>
+																<vizFeeds:FeedItem uid="valueAxis" type="Measure" values="C36"/>
+																<vizFeeds:FeedItem uid="valueAxis" type="Measure" values="L05"/>
+																<vizFeeds:FeedItem uid="valueAxis" type="Measure" values="O01"/>
+																<!--<vizFeeds:FeedItem uid="valueAxis" type="Measure" values="Claim Count"/>-->
+																<vizFeeds:FeedItem uid="categoryAxis" type="Dimension" values="Month"/>
+															</viz:feeds>
+														</viz:VizFrame>
+													</commons:content>
+												</commons:ChartContainerContent>
+											</commons:content>
+										</commons:ChartContainer>
+									</layout:content>
+								</layout:BlockLayoutCell>
+								<!--</layout:content>-->
+								<!--</layout:Grid>-->
+							</layout:content>
+						</layout:BlockLayoutRow>
+					</layout:content>
+				</layout:BlockLayout>
+			</Panel>
+			<Text text="List of Release Orders" textAlign="Center" class="header"/>
+			<!--<ScrollContainer width="100%" horizontal="true" focusable="true">-->
+				<table:Table id="table" rows="{tp>/results}" rowSelectionChange="rowSelection" visibleRowCount="10" selectionMode="MultiToggle"
+					showNoData="false" enableGrouping="true" >
+					<!--<headerToolbar>-->
+					<table:extension>
+						<OverflowToolbar>
+							<Button width="100px" icon="sap-icon://cart-approval" tooltip="Process" press="processEH" type="Accept"/>
+							<Title id="tableHeader" text="{Release Order Claims}" level="H3"/>
+							<Label text="Sold To" design="Bold"/>
+							<!--<ComboBox id="Ibp" width="220px" selectionChange="bpSelected" showSecondaryValues="true"-->
+							<!--	items="{path : 'sold>/results', sorter: { path: 'Name1' }}" filterSecondaryValues="true" loadItems="handleLoadItems"-->
+							<!--	value="{/comboBoxValue}" selectedKey="{/comboBoxKey}">-->
+							<!--	<core:ListItem id="Bplist" key="{sold>Kunnr}" text="{sold>Name1}" additionalText="{sold>Kunnr}"/>-->
+							<!--</ComboBox>-->
+							<Input showValueHelp="true" id="soldtoInput" width="220px" valueHelpRequest="onSoldHelpRequest" showSuggestion="true"
+								suggestionItems="{/ZsoldtonamSet}" showSecondaryValues="true" suggest="onSuggest" 
+								suggestionItemSelected="onSuggestionSoldTo" change="soldToChange">
+								<suggestionItems>
+									<core:ListItem id="soldToSuggTable" key="{Kunnr}" text="{Kunnr}" additionalText="{Name1}"/>
+								</suggestionItems>
+							</Input>
+							<!--<Text text="{parts: [{path: '/comboBoxValue'}, {path: '/comboBoxKey'}], formatter: '.fnFormatter'}"/>-->
+							<Label text="Ship To" design="Bold"/>
+							<!--<ComboBox id="IShip" width="220px" selectionChange="shipToSelected" showSecondaryValues="true"-->
+							<!--	items="{path : 'ship>/results', sorter: { path: 'Name1' }}" filterSecondaryValues="true" loadItems="handleLoadItems">-->
+							<!--	<core:ListItem id="Shiplist" key="{ship>Shipto}" text="{ship>Name1}" additionalText="{ship>Shipto}"/>-->
+							<!--<core:Item key="{Name1}" text="{Kunnr}{Name1}"/>-->
+							<!--change="soldToChange" -->
+							<!--</ComboBox>-->
+							<Input showValueHelp="true" id="shiptoInput" width="220px" valueHelpRequest="onShipHelpRequest" showSuggestion="true"
+								suggestionItems="{/ZshiptonamSet}" showSecondaryValues="true" suggest="onSuggestShip" 
+								suggestionItemSelected="onSuggestionShipTo" change="shipToChange">
+								<suggestionItems>
+									<core:ListItem id="shipToSuggTable" key="{Kunnr}" text="{Kunnr}" additionalText="{Name1}"/>
+								</suggestionItems>
+							</Input>
+							<!--<Label text="ContractType" design="Bold"/>-->
+							<!--<ComboBox id="OType" width="80px" selectionChange="typeSelected" showSecondaryValues="true"-->
+							<!--	items="{/TypeSet}"-->
+							<!--	filterSecondaryValues= "true" loadItems="handleLoadItems" >-->
+							<!--	<core:ListItem id="Typelist" key="{Auart}" text="{Auart}" additionalText="{Bezei}"/>-->
+							<!--<core:Item key="{Name1}" text="{Kunnr}{Name1}"/>-->
+							<!--</ComboBox>-->
+							<!--<Label text="Contract" design="Bold"/>-->
+							<!--<ComboBox id="Con" width="120px" selectionChange="contractSelected" showSecondaryValues="true"-->
+							<!--	items="{con>/results}"-->
+							<!--	loadItems="handleLoadItems" >-->
+							<!--	<core:ListItem id="ConList" key="{con>ContractNum}" text="{con>ContractNum}" />-->
+							<!--<core:Item key="{Name1}" text="{Kunnr}{Name1}"/>-->
+							<!--</ComboBox>-->
+							<!--<Label text="Order" design="Bold"/>-->
+							<!--<ComboBox id="Iorder" items="{Order>/results}" width="120px" textAlign="Center" textDirection="RTL" selectionChange="orderSelected">-->
+							<!--	<core:Item key="{Order>RelOrder}" text="{Order>RelOrder}"/>-->
+							<!--</ComboBox>-->
+							<Label text="Media Issue" design="Bold"/>
+							<!--<ComboBox id="Missue" items="{media>/results}" width="200px" textAlign="Center" -->
+							<!--      filterSecondaryValues= "true" selectionChange="mediaSelected" showSecondaryValues="true">-->
+							<!--	<core:ListItem key="{media>Ismidentcode}" additionalText="{media>Ismidentcode}" text="{media>Arktx}"/>-->
+							<!--</ComboBox>-->
+							<MultiInput id="productInput" showSuggestion="false" showValueHelp="true" valueHelpRequest="onProductHelpRequest" width="280px"
+								tokenChange="mediaChange" suggestionItemSelected="onSuggestionItemMedia" valueHelpOnly="true"
+								placeholder="Click Value Help for Input"
+								>
+								<!--suggestionItems="{media>/results}">-->
+								<!--<suggestionItems>-->
+								<!--	<core:ListItem key="{media>Ismidentcode}" text="{media>Arktx}" additionalText="{media>Ismidentcode}"/>-->
+								<!--</suggestionItems>-->
+							</MultiInput>
+							<!--    <Label text="Order Reason" design="Bold"/>-->
+							<!--<Input value=" " showValueHelp="true" width="100px"/>-->
+							<ToolbarSpacer/>
+							<Button id="refreshTab" icon="sap-icon://refresh" tooltip="Refresh Table" press="Refresh" type="Emphasized" visible="false"/>
+							<!--<SearchField id="searchField" tooltip="{Search}" search="onMainSearch">-->
+							<!--	<layoutData>-->
+							<!--		<OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow"/>-->
+							<!--	</layoutData>-->
+							<!--</SearchField>-->
+							<!--<Button icon="sap-icon://action-settings" tooltip="Layout Settings" press="onPersoButtonPressed" />-->
+						</OverflowToolbar>
+					</table:extension>
+					<table:Column width="80px" id="ordtype" sortProperty="Auart" filterProperty="Auart">
+						<table:label>
+							<Label text="Order Type"/>
+						</table:label>
+						<table:template>
+							<Label text="{tp>Auart}"/>
+						</table:template>
+					</table:Column >
+					<table:Column width="100px" id="relord" sortProperty="RelOrder" filterProperty="RelOrder">
+						<table:label>
+							<Label text="Release Order"/>
+						</table:label>
+						<table:template>
+							<Label text="{tp>RelOrder}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="100px" id="relitem" sortProperty="RelItem" filterProperty="RelItem">
+						<table:label>
+							<Label text="Order Item"/>
+						</table:label>
+						<table:template>
+							<Label text="{tp>RelItem}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="160px" id="media" sortProperty="Ismidentcode" filterProperty="Ismidentcode">
+						<table:label>
+							<Label text="Media Issue"/>
+						</table:label>
+						<table:template>
+							<Label text="{tp>Ismidentcode}"/>
+						</table:template>
+					</table:Column >
+					<table:Column width="100px" sortProperty="NewClaim" filterProperty="NewClaim">
+						<table:label>
+							<Label text="Latest Claim"/>
+						</table:label>
+						<table:template>
+							<Link text="{tp>NewClaim}" href="{tp>Link}" target="_blank"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="110px" sortProperty="CountClaim" filterProperty="CountClaim">
+						<table:label>
+							<Label text="Claims Count"/>
+						</table:label>
+						<table:template>
+							<Button text="{tp>CountClaim}" width="100px" type="Emphasized" press="handleClaims"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="100px" sortProperty="RecClaim" filterProperty="RecClaim">
+						<table:label>
+							<Label text="Latest Claim Date"/>
+						</table:label>
+						<table:template>
+							<Label text="{tp>RecClaim}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="100px" sortProperty="RecClaim" filterProperty="RecClaim">
+						<table:label>
+							<Label text="Claim Status"/>
+						</table:label>
+						<table:template>
+							<ObjectStatus text="{tp>Status}" state="{path:'tp>Status' , formatter:'.colorFormatter'}" />
+							<!--<Label id="statusCol"  text="{path:'tp>Status', formatter:'.colorFormatter'}"-->
+							<!--class="green"/>-->
+							<!--<Text id="statusCol" text="{tp>Status}">-->
+							
+						</table:template>
+					</table:Column>
+					<table:Column width="100px" sortProperty="ContractNum" filterProperty="ContractNum">
+						<table:label>
+							<Label text="Contract"/>
+						</table:label>
+						<table:template>
+							<Label text="{tp>ContractNum}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="100px" sortProperty="ContractItem" filterProperty="ContractItem">
+						<table:label>
+							<Label text="Contract Item"/>
+						</table:label>
+						<table:template>
+							<Label text="{tp>ContractItem}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="100px" sortProperty="SoldTo" filterProperty="SoldTo">
+						<table:label>
+							<Label text="Sold-To-Party"/>
+						</table:label>
+						<table:template>
+							<Label text="{tp>SoldTo}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="140px" sortProperty="SoldToName" filterProperty="SoldToName">
+						<table:label>
+							<Label text="SoldToName"/>
+						</table:label>
+						<table:template>
+							<Label text="{tp>SoldToName}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="100px" sortProperty="ShipTo" filterProperty="ShipTo">
+						<table:label>
+							<Label text="Ship-To-Party"/>
+						</table:label>
+						<table:template>
+							<Label text="{tp>ShipTo}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="140px" sortProperty="ShipToName" filterProperty="ShipToName">
+						<table:label>
+							<Label text="ShipToName"/>
+						</table:label>
+						<table:template>
+							<Label text="{tp>ShipToName}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="100px" sortProperty="PurOrderDes" filterProperty="PurOrderDes">
+						<table:label>
+							<Label text="PO/Delivery"/>
+						</table:label>
+						<table:template>
+							<Label text="{tp>PurOrderDes}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="100px" sortProperty="Auart" filterProperty="Auart">
+						<table:label>
+							<Label text="PO/DeliveryNum"/>
+						</table:label>
+						<table:template>
+							<Label text="{tp>PurOrder}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="100px" sortProperty="PurItem" filterProperty="PurItem">
+						<table:label>
+							<Label text="PO/Del Item"/>
+						</table:label>
+						<table:template>
+							<Label text="{tp>PurItem}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="100px" sortProperty="PurDate" filterProperty="PurDate">
+						<table:label>
+							<Label text="PO/DeliveryDate"/>
+						</table:label>
+						<table:template>
+							<Label text="{tp>PurDate}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="100px" sortProperty="PurRequisition" filterProperty="PurRequisition">
+						<table:label>
+							<Label text="Purchase Req."/>
+						</table:label>
+						<table:template>
+							<Label text="{tp>PurRequisition}"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="100px" sortProperty="PurReqIetm" filterProperty="PurReqIetm">
+						<table:label>
+							<Label text="PR Item"/>
+						</table:label>
+						<table:template>
+							<Label text="{tp>PurReqIetm}"/>
+						</table:template>
+					</table:Column>
+				</table:Table>
+			<!--</ScrollContainer>-->
+		</content>
+		<!--</semantic:content>-->
+		<!--<semantic:sendEmailAction>-->
+		<!--	<semantic:SendEmailAction id="shareEmail" press=".onShareEmailPress"/>-->
+		<!--</semantic:sendEmailAction>-->
+		<Toolbar>
+			<SearchField id="searchField" tooltip="{Search}" search="onMainSearch">
+				<layoutData>
+					<OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow"/>
+				</layoutData>
+			</SearchField>
+			<Button icon="sap-icon://reset" tooltip="Reset Layout Sort/Filter" press="resetSort" type="Emphasized"/>
+			<ToolbarSpacer/>
+			<OverflowToolbar id="infobar">
+				<Button icon="sap-icon://action-settings" tooltip="Layout Settings" press="onPersoButtonPressed" type="Emphasized"/>
+				<Button icon="sap-icon://excel-attachment" tooltip="Download Excel" type="Emphasized" press="downloadExcel"/>
+			</OverflowToolbar>
+		</Toolbar>
+	</Page>
+	<!--</semantic:SemanticPage>-->
+</mvc:View>

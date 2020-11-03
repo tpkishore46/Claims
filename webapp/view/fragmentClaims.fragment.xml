@@ -1,0 +1,104 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:table="sap.ui.table">
+	<Dialog title="Claim Orders" resizable="true" draggable="true" contentWidth="1000px">
+		<content>
+			<table:Table id="claims" rows="{claims>/results}" visibleRowCount="10" showNoData="false" alternateRowColors="true">
+				<!--<table:extension>-->
+				<!--	<OverflowToolbar>-->
+				<!--		<Button width="50px" text="Ok" type="Accept"/>-->
+				<!--	</OverflowToolbar>-->
+				<!--</table:extension>-->
+				<table:Column width="100px">
+					<table:label>
+						<Label text="Claim Order"/>
+					</table:label>
+					<table:template>
+						<Link text="{claims>Vgbel}" href="{claims>Link}" target="_blank"/>
+					</table:template>
+				</table:Column>
+				<table:Column width="100px">
+					<table:label>
+						<Label text="Claim Item"/>
+					</table:label>
+					<table:template>
+						<Label text="{claims>Vgpos}"/>
+					</table:template>
+				</table:Column>
+				<table:Column width="100px">
+					<table:label>
+						<Label text="Media Issue"/>
+					</table:label>
+					<table:template>
+						<Label text="{claims>Matnr}"/>
+					</table:template>
+				</table:Column>
+				<table:Column width="100px">
+					<table:label>
+						<Label text="Description"/>
+					</table:label>
+					<table:template>
+						<Label text="{claims>Arktx}"/>
+					</table:template>
+				</table:Column>
+				<table:Column width="100px">
+					<table:label>
+						<Label text="Creation Date"/>
+					</table:label>
+					<table:template>
+						<Label text="{claims>Date}"/>
+					</table:template>
+				</table:Column>
+				<table:Column width="80px">
+					<table:label>
+						<Label text="Created By"/>
+					</table:label>
+					<table:template>
+						<Label text="{claims>Created}"/>
+					</table:template>
+				</table:Column >
+				<table:Column width="100px">
+					<table:label>
+						<Label text="OrderReason"/>
+					</table:label>
+					<table:template>
+						<Label text="{claims>Augru}"/>
+					</table:template>
+				</table:Column>
+				<table:Column width="100px">
+					<table:label>
+						<Label text="Reason Text"/>
+					</table:label>
+					<table:template>
+						<Label text="{claims>Bezei}"/>
+					</table:template>
+				</table:Column>
+				<table:Column width="100px">
+					<table:label>
+						<Label text="Delivery"/>
+					</table:label>
+					<table:template>
+						<Label text="{claims>Delivery}"/>
+					</table:template>
+				</table:Column>
+				<table:Column width="100px">
+					<table:label>
+						<Label text="Delivery Date"/>
+					</table:label>
+					<table:template>
+						<Label text="{claims>DelDate}"/>
+					</table:template>
+				</table:Column>
+				<table:Column width="100px">
+					<table:label>
+						<Label text="Quantity"/>
+					</table:label>
+					<table:template>
+						<Label text="{claims>Qty}"/>
+					</table:template>
+				</table:Column>
+			</table:Table>
+		</content>
+		<OverflowToolbar>
+			<Button width="50px" icon="sap-icon://accept" tooltip="Ok" type="Emphasized" press="claimConfirm"/>
+		</OverflowToolbar>
+	</Dialog>
+</core:FragmentDefinition>

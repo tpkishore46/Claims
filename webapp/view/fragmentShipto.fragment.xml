@@ -1,0 +1,43 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" controllerName="zqtc.ZQTC_CLAIMS.controller.Worklist">
+	<Dialog resizable="true" draggable="true" contentWidth="730px">
+		<content>
+			<Toolbar>
+				<OverflowToolbar>
+					<SearchField id="myShipSearch" search="searchEHShip" width="700px"/>
+				</OverflowToolbar>
+				<!--<ToolbarSpacer/>-->
+				<!--<Button icon="sap-icon://clear-filter" press="clearProd"  type="" tooltip="Clear Selected Items"-->
+				<!--width="80px"/>-->
+			</Toolbar>
+			<Table items="{/ZSHIPTOSet}" id="myShipTable" growing="true" growingThreshold="100" mode="SingleSelectMaster"
+			selectionChange="shipToSelect">
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{Shipto}"/>
+							<Text text="{Name1}"/>
+							<Text text="{Name2}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+				<columns>
+					<Column width="100px">
+						<Label text="ShipTo"/>
+					</Column>
+					<Column width="200px">
+						<Label text="Name1"/>
+					</Column>
+					<Column width="200px">
+						<Label text="Name2"/>
+					</Column>
+				</columns>
+			</Table>
+		</content>
+		<!--<beginButton>-->
+		<!--	<Button icon="sap-icon://accept" press="acceptShip" type="Accept" tooltip="Select"/>-->
+		<!--</beginButton>-->
+		<endButton text="test">
+			<Button icon="sap-icon://sys-cancel" press="cancelShip" type="Reject" tooltip="close"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,43 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" controllerName="zqtc.ZQTC_CLAIMS.controller.Worklist">
+	<Dialog resizable="true" draggable="true" contentWidth="730px">
+		<content>
+			<Toolbar>
+				<OverflowToolbar>
+					<SearchField id="mySoldSearch" search="searchEHSold" width="700px"/>
+				</OverflowToolbar>
+				<!--<ToolbarSpacer/>-->
+				<!--<Button icon="sap-icon://clear-filter" press="clearProd"  type="" tooltip="Clear Selected Items"-->
+				<!--width="80px"/>-->
+			</Toolbar>
+			<Table items="{/SOLDTOSet}" id="mySoldTable" growing="true" growingThreshold="100" mode="SingleSelectMaster"
+			includeItemInSelection="true" selectionChange="soldToSelect">
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{Kunnr}"/>
+							<Text text="{Name1}"/>
+							<Text text="{Name2}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+				<columns>
+					<Column width="100px">
+						<Label text="SoldTo"/>
+					</Column>
+					<Column width="200px">
+						<Label text="First Name"/>
+					</Column>
+					<Column width="200px">
+						<Label text="Last Name"/>
+					</Column>
+				</columns>
+			</Table>
+		</content>
+		<!--<beginButton>-->
+		<!--	<Button icon="sap-icon://accept" press="acceptSold" type="Accept" tooltip="Select"/>-->
+		<!--</beginButton>-->
+		<endButton text="test">
+			<Button icon="sap-icon://sys-cancel" press="cancelSold" type="Reject" tooltip="close"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

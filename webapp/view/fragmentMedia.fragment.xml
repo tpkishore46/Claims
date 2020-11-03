@@ -1,0 +1,92 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" controllerName="zqtc.ZQTC_CLAIMS.controller.Worklist">
+	<!--<SelectDialog noDataText="No Records Found" title="Select Table" -->
+	<!--	search="onSearchMediaf4" confirm="handleHelpMediaConfirm" -->
+	<!--	cancel="handleTableValueHelpMediaCancel" growingThreshold='100' contentWidth="650px" >-->
+	<!--</SelectDialog>-->
+	<Dialog resizable="true" draggable="true" contentWidth="700px">
+		<content>
+			<Toolbar>
+				<OverflowToolbar>
+					<SearchField id="mySearch" search="searchEH" width="570px"/>
+				</OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button icon="sap-icon://clear-filter" press="clearProd" type="" tooltip="Clear Selected Items" width="80px"/>
+				<!--<Button  icon="sap-icon://accept" press="acceptProd"  type="Accept" tooltip="Select"/>-->
+				<!--<Button  icon="sap-icon://sys-cancel" press="cancelProd"  type="Reject" tooltip="close"/>-->
+			</Toolbar>
+				<Panel id="mediaPanel" expandable="true" expanded="true" headerText="Selected Items">
+				<Table items="{sel>/}" id="mySelProdTable" growing="true" mode="Delete"
+				delete="deleteSelectionMedia" showNoData="false" >
+					<items>
+						<ColumnListItem>
+							<cells>
+								<Text text="{sel>Ismidentcode}"/>
+							</cells>
+						</ColumnListItem>
+						</items>
+						<columns>
+							<Column width="120px">
+								<!--<Label text="Media Issue"/>-->
+							</Column>
+						</columns>
+					</Table>
+				</Panel>
+			<Table items="{/ISMCodeSet}" id="myProdTable" growing="true" growingThreshold="100" mode="MultiSelect"
+			       	selectionChange="rowSelectionMedia" >
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{Ismidentcode}"/>
+							<Text text="{Arktx}"/>
+							<!--<Text text="{Mtart}"/>-->
+							<Text text="{Ismyearnr}"/>
+							<Text text="{Ismcopynr}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+				<columns>
+					<Column width="120px">
+						<Label text="Media Issue"/>
+					</Column>
+					<Column width="150px">
+						<Label text="Description"/>
+					</Column>
+					<!--<Column width="60px">-->
+					<!--	<Label text="Type"/>-->
+					<!--</Column>-->
+					<Column width="50px">
+						<Label text="Year"/>
+					</Column>
+					<Column width="50px">
+						<Label text="CopyNum"/>
+					</Column>
+					<!--   <Column>-->
+					<!--	<Label text="Price"/>-->
+					<!--</Column>-->
+				</columns>
+			</Table>
+			<!--<Panel id="mediaPanel" expandable="true" expanded="true" headerText="Selected Items">-->
+			<!--	<Table items="{sel>/}" id="mySelProdTable" growing="true" mode="Delete">-->
+			<!--		<items>-->
+			<!--			<ColumnListItem>-->
+			<!--				<cells>-->
+			<!--					<Text text="{sel>Name}"/>-->
+			<!--				</cells>-->
+			<!--			</ColumnListItem>-->
+			<!--			</items>-->
+			<!--			<columns>-->
+			<!--				<Column width="120px">-->
+			<!--					<Label text="Media Issue"/>-->
+			<!--				</Column>-->
+			<!--			</columns>-->
+			<!--		</Table>-->
+			<!--	</Panel>-->
+			</content>
+			<beginButton>
+				<Button icon="sap-icon://accept" press="acceptProd" type="Accept" tooltip="Select"/>
+			</beginButton>
+			<endButton text="test">
+				<Button icon="sap-icon://sys-cancel" press="cancelProd" type="Reject" tooltip="close"/>
+			</endButton>
+		</Dialog>
+	</core:FragmentDefinition>
